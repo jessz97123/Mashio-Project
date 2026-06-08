@@ -1,0 +1,12 @@
+# Netlify build + routing config for the mashio project site.
+# With this file, Netlify auto-detects everything — no manual settings needed.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Single-page-app fallback: every path serves index.html so React Router works
+# (e.g. visiting /menu directly or refreshing won't 404).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

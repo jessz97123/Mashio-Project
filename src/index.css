@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+/* ---- mashio project design tokens ----
+   Neutral palette only — browns / blacks / white.
+   Let the drink images supply all the color. */
+@theme {
+  --color-ink: #1a1512;          /* warm near-black — primary text */
+  --color-espresso: #3e2c23;     /* headings, buttons, accents */
+  --color-espresso-deep: #2a1e18;/* deeper espresso (hover) */
+  --color-brown: #6b5446;        /* secondary text, borders, captions */
+  --color-paper: #faf7f0;        /* warm off-white background */
+  --color-tan: #efe7dc;          /* cards, section bands */
+
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+  }
+
+  ::selection {
+    background-color: var(--color-tan);
+    color: var(--color-ink);
+  }
+}
+
+/* Reusable accents */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-espresso px-7 py-3
+           text-sm font-medium tracking-wide text-paper transition-colors
+           hover:bg-espresso-deep;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-brown/40
+           px-7 py-3 text-sm font-medium tracking-wide text-espresso transition-colors
+           hover:bg-tan;
+  }
+  /* eyebrow / small-caps label */
+  .eyebrow {
+    @apply text-xs uppercase tracking-[0.25em] text-brown;
+  }
+}
