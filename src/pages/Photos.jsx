@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import PageHeader from '../components/PageHeader'
 import { SITE } from '../data/site'
 import { PHOTOS } from '../data/photos'
+import { useLang } from '../i18n/LanguageContext'
 
 const isVideo = (p) => p.type === 'video' || /\.(mp4|webm|mov)$/i.test(p.src)
 
 export default function Photos() {
+  const { t } = useLang()
   const [active, setActive] = useState(null)
 
   useEffect(() => {
@@ -19,14 +21,12 @@ export default function Photos() {
     return () => window.removeEventListener('keydown', onKey)
   }, [active])
 
+  const p = t.photos
   const hasPhotos = PHOTOS.length > 0
 
   return (
     <>
-      <PageHeader
-        title="photos"
-        intro="A few favorite moments — drinks, desserts, and life at the pop-up."
-      />
+      <PageHeader title={p.title} intro={p.intro} />
 
       <section className="mx-auto max-w-5xl px-5 py-16 sm:px-8">
         {hasPhotos ? (
@@ -37,59 +37,35 @@ export default function Photos() {
                 type="button"
                 onClick={() => setActive(photo)}
                 className="group block aspect-square overflow-hidden rounded-xl border border-brown/10 bg-tan focus:outline-none focus:ring-2 focus:ring-espresso"
-                aria-label={`Enlarge: ${photo.alt || `photo ${i + 1}`}`}
+                aria-label={photo.alt || `photo ${i + 1}`}
               >
                 {isVideo(photo) ? (
-                  <video
-                    src={photo.src}
-                    muted
-                    loop
-                    playsInline
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                  <video src={photo.src} muted loop playsInline className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 ) : (
-                  <img
-                    src={photo.src}
-                    alt={photo.alt || ''}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                  <img src={photo.src} alt={photo.alt || ''} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 )}
               </button>
             ))}
           </div>
         ) : (
-          // Neutral placeholder until real photos are added to src/data/photos.js
-          // (HARD RULE: no stock/AI imagery).
           <>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               {Array.from({ length: 9 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="flex aspect-square items-center justify-center rounded-xl border border-brown/15 bg-tan"
-                >
+                <div key={i} className="flex aspect-square items-center justify-center rounded-xl border border-brown/15 bg-tan">
                   <img src="/mashio-badge.svg" alt="" className="h-8 w-8 opacity-25" />
                 </div>
               ))}
             </div>
             <div className="mt-12 text-center">
-              <p className="text-brown">
-                Our gallery is still brewing. For the latest snaps, follow along on Instagram.
-              </p>
-              <a
-                href={SITE.instagram.url}
-                target="_blank"
-                rel="noreferrer"
-                className="btn-primary mt-6"
-              >
-                See more on {SITE.instagram.handle}
+              <p className="text-brown">{p.soon}</p>
+              <a href={SITE.instagram.url} target="_blank" rel="noreferrer" className="btn-primary mt-6">
+                {p.seeMore} {SITE.instagram.handle}
               </a>
             </div>
           </>
         )}
       </section>
 
-      {/* Lightbox */}
       {active && (
         <div
           className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/80 p-4 backdrop-blur-sm"
@@ -99,20 +75,9 @@ export default function Photos() {
           aria-label={active.alt || 'Enlarged photo'}
         >
           {isVideo(active) ? (
-            <video
-              src={active.src}
-              controls
-              autoPlay
-              playsInline
-              className="max-h-[90vh] max-w-full rounded-lg shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            />
+            <video src={active.src} controls autoPlay playsInline className="max-h-[90vh] max-w-full rounded-lg shadow-2xl" onClick={(e) => e.stopPropagation()} />
           ) : (
-            <img
-              src={active.src}
-              alt={active.alt || ''}
-              className="max-h-[90vh] max-w-full rounded-lg object-contain shadow-2xl"
-            />
+            <img src={active.src} alt={active.alt || ''} className="max-h-[90vh] max-w-full rounded-lg object-contain shadow-2xl" />
           )}
           <button
             type="button"

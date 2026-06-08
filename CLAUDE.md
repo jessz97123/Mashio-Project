@@ -124,6 +124,19 @@ src/
     menu.js             # craft specials + menu sections + notes (from PRD §7)
 ```
 
+## Internationalization (i18n) — EN / 简体中文 / 한국어
+- All display text lives in `src/i18n/translations.js` (`T.en` / `T.zh` / `T.ko`, plus `LANGS`).
+- `src/i18n/LanguageContext.jsx` provides `useLang()` → `{ lang, setLang, t }`; `t` is the current
+  language deep-merged over English (missing keys fall back to EN). Choice persists in localStorage
+  (`mashio-lang`) and is guessed from `navigator.language` on first visit. Sets `<html lang>`.
+- `src/components/LanguageSwitcher.jsx` = the EN / 中文 / 한국어 toggle, shown top-right in `Navbar`.
+- Pages read text via `t.<page>.<key>`. Non-text data (prices, image paths, links, dates) stays in
+  `src/data/*` and is joined with translations **by array index** — keep `translations.js` arrays
+  aligned with `CRAFT_SPECIALS.items`, `MENU_SECTIONS`, and `UPCOMING_EVENTS`.
+- **Menu page:** the flat Canva images are English (baked-in text). For zh/ko a translated **text
+  menu** renders below the images (`lang !== 'en'`); an sr-only English version is always present.
+- To add a language: add it to `LANGS` + a `T.<code>` block; everything else is automatic.
+
 ## Data sources
 - `src/data/site.js` — name, tagline, status line, IG, email, address, hours, Google Maps embed.
 - `src/data/menu.js` — `CRAFT_SPECIALS` (with image paths), `MENU_SECTIONS`, `MENU_ROTATES_NOTE`,
