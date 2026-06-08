@@ -8,8 +8,8 @@
 
 export const LANGS = [
   { code: 'en', label: 'EN', name: 'English' },
-  { code: 'zh', label: '中文', name: '简体中文' },
-  { code: 'ko', label: '한국어', name: '한국어' },
+  { code: 'zh', label: '中', name: '简体中文' },
+  { code: 'ko', label: '한', name: '한국어' },
 ]
 
 export const T = {
