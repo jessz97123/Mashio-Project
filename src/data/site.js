@@ -20,9 +20,9 @@ export const SITE = {
   // which is the one Google allows to be iframed; free, no API key).
   // Re-copy from Google Maps → Share → Embed a map if the pin ever needs updating.
   mapEmbed:
-    'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1858.6803054200818!2d-157.8566423!3d21.2967627!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c006de29984c0cf%3A0x1ff948526d18c2c1!2sfishcake!5e0!3m2!1sen!2sus!4v1780937177642!5m2!1sen!2sus',
+    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3717.3606872579358!2d-157.85917312464653!3d21.296759678519745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c006d000ffc18b7%3A0x30e0c75c908c3de!2sMashio%20Project!5e0!3m2!1sen!2sus!4v1780959702769!5m2!1sen!2sus',
   mapLink:
-    'https://www.google.com/maps/search/?api=1&query=Fishcake+307C+Kamani+St+Honolulu+HI+96813',
+    'https://www.google.com/maps/search/?api=1&query=Mashio+Project+307C+Kamani+St+Honolulu+HI+96813',
 }
 
 export const NAV_LINKS = [
